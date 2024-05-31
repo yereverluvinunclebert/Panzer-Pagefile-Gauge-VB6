@@ -1,6 +1,6 @@
 # Panzer-Pagefile-Gauge-VB6
  
-  A FOSS Pagefile Gauge VB6 WoW64 Widget for Reactos, XP, Win7, 8 and 10/11+.
+ This is an interim page before updating all text and images. A FOSS Pagefile Gauge VB6 WoW64 Widget for Reactos, XP, Win7, 8 and 10/11+.
  
  My current VB6/RC6 PSD program being finished now, fundamentally complete, only awaiting testing on Windows XP and Win7 32bit and some multi monitor checking, completion of the CHM help file and the creation of the setup.exe. This Panzer widget is based upon the Yahoo widget of the same visual design and very similar operation.
 
@@ -31,7 +31,7 @@ The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage
  
  ![panzer-ramgauge-help-750](https://github.com/yereverluvinunclebert/Panzer-RAM-Gauge-VB6/assets/2788342/4ac57fec-58ed-493d-ba1a-eaab078ef828)
 
- The Panzer RAM Gauge VB6 gauge is Beta-grade software, under development, not yet 
+ The Panzer Pagefile Gauge VB6 gauge is Beta-grade software, under development, not yet 
  ready to use on a production system - use at your own risk.
 
  This version was developed on Windows 7 using 32 bit VisualBasic 6 as a FOSS 
@@ -126,7 +126,7 @@ The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage
  without any additional Microsoft OCX components, just the basic controls that 
  ship with VB6.  
  
-![vb6-logo-350](https://github.com/yereverluvinunclebert/Panzer-RAM-Gauge-VB6/assets/2788342/2479af5a-82bf-42ae-bdb1-28c22160f93c)
+![vb6-logo-350](https://github.com/yereverluvinunclebert/Panzer-Pagefile-Gauge-VB6/assets/2788342/2479af5a-82bf-42ae-bdb1-28c22160f93c)
  
  * Uses the latest version of the RC6 Cairo framework from Olaf Schmidt.
  
@@ -140,9 +140,9 @@ The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage
  referenced using modRC6regfree.bas which is compiled into the binary.	
  
  
- Requires a PzRAM Gauge folder in C:\Users\<user>\AppData\Roaming\ 
- eg: C:\Users\<user>\AppData\Roaming\PzRAM Gauge
- Requires a settings.ini file to exist in C:\Users\<user>\AppData\Roaming\PzRAM Gauge
+ Requires a PzPagefile Gauge folder in C:\Users\<user>\AppData\Roaming\ 
+ eg: C:\Users\<user>\AppData\Roaming\PzPagefile Gauge
+ Requires a settings.ini file to exist in C:\Users\<user>\AppData\Roaming\PzPagefile Gauge
  The above will be created automatically by the compiled program when run for the 
  first time.
  
@@ -153,7 +153,7 @@ The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage
  * CCRSlider.ocx
  
  This OCX will reside in the program folder. The program reference to this OCX is 
- contained within the supplied resource file Panzer RAM Gauge Gauge.RES. It is 
+ contained within the supplied resource file Panzer Pagefile Gauge Gauge.RES. It is 
  compiled into the binary.
  
  * OLEGuids.tlb
