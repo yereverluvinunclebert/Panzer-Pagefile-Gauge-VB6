@@ -6,7 +6,7 @@
 
  Why VB6? Well, with a 64 bit, modern-language improvement upgrade on the way with 100% compatible TwinBasic coupled with support for transparent PNGs via RC/Cairo, VB6 code has an amazing future.
 
-![vb6-logo-350](https://github.com/yereverluvinunclebert/Panzer-Pagefile-Gauge-VB6/assets/2788342/2f60380d-29f5-4737-8392-e7d747c61f25)
+![vb6-logo-350](https://github.com/yereverluvinunclebert/Panzer-RAM-Gauge-VB6/assets/2788342/2f60380d-29f5-4737-8392-e7d747c61f25)
 
  I created as a variation of the previous gauges I had previously created for the World of Tanks and War Thunder 
  communities. The Panzer Pagefile Gauge widget is an attractive dieselpunk VB6 widget for your desktop. 
@@ -29,7 +29,7 @@ The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage
  windows. Mouse hover over the widget and press CTRL+mousewheel up/down to resize. It works well on Windows XP 
  to Windows 11.
  
- ![panzer-ramgauge-help-750](https://github.com/yereverluvinunclebert/Panzer-RAM-Gauge-VB6/assets/2788342/4ac57fec-58ed-493d-ba1a-eaab078ef828)
+![panzergauge-help](https://github.com/yereverluvinunclebert/Panzer-Pagefile-Gauge-VB6/assets/2788342/b6e80fd8-b6d3-4e66-85ff-6d3fb1c70589)
 
  The Panzer Pagefile Gauge VB6 gauge is Beta-grade software, under development, not yet 
  ready to use on a production system - use at your own risk.
