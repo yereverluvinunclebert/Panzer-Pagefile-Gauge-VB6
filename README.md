@@ -126,7 +126,7 @@ The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage
  without any additional Microsoft OCX components, just the basic controls that 
  ship with VB6.  
  
-![vb6-logo-350](https://github.com/yereverluvinunclebert/Panzer-Pagefile-Gauge-VB6/assets/2788342/2479af5a-82bf-42ae-bdb1-28c22160f93c)
+![vb6-logo-350](https://github.com/yereverluvinunclebert/Panzer-RAM-Gauge-VB6/assets/2788342/2479af5a-82bf-42ae-bdb1-28c22160f93c)
  
  * Uses the latest version of the RC6 Cairo framework from Olaf Schmidt.
  
