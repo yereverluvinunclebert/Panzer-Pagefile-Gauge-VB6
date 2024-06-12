@@ -69,7 +69,7 @@ Private sizString As String
 '------------------------------------------------------ ENDS
 
 Private mTicking As Boolean ' property Ticking
-Private mThisRAMDetail As String ' property
+Private mThisPagefileDetail As String ' property
 Private mPointerAnimate As Boolean ' property PointerAnimate
 Private mLocked As Boolean ' property Locked
 Private mHidden As Boolean ' property Hidden
@@ -102,7 +102,7 @@ Private Sub Class_Initialize()
     Set tmrAnimator = Nothing
     Set tmrAnimator = New_c.Timer(animationInterval, False)
     
-    mThisRAMDetail = obtainRAMDetails
+    mThisPagefileDetail = obtainPagefileDetails
 
    On Error GoTo 0
    Exit Sub
@@ -199,42 +199,43 @@ TickingLet_Error:
 End Property
 
 '---------------------------------------------------------------------------------------
-' Property : thisRAMDetail
+' Property : thisPagefileDetail
 ' Author    : beededea
 ' Date      : 17/05/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Get thisRAMDetail() As String
-   On Error GoTo thisRAMDetailGet_Error
+Public Property Get thisPagefileDetail() As String
+   On Error GoTo thisPagefileDetailGet_Error
 
-    thisRAMDetail = mThisRAMDetail
+    mThisPagefileDetail = obtainPagefileDetails
+    thisPagefileDetail = mThisPagefileDetail
 
    On Error GoTo 0
    Exit Property
 
-thisRAMDetailGet_Error:
+thisPagefileDetailGet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property thisRAMDetail of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property thisPagefileDetail of Class Module cwOverlay"
 End Property
 '---------------------------------------------------------------------------------------
-' Property  : thisRAMDetail
+' Property  : thisPagefileDetail
 ' Author    :
 ' Date      : 09/05/2023
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Public Property Let thisRAMDetail(ByVal newValue As String)
-    On Error GoTo thisRAMDetailLet_Error
+Public Property Let thisPagefileDetail(ByVal newValue As String)
+    On Error GoTo thisPagefileDetailLet_Error
 
-    If mThisRAMDetail <> newValue Then mThisRAMDetail = newValue Else Exit Property
+    If mThisPagefileDetail <> newValue Then mThisPagefileDetail = newValue Else Exit Property
         
     On Error GoTo 0
     Exit Property
 
-thisRAMDetailLet_Error:
+thisPagefileDetailLet_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property thisRAMDetail of Class Module cwOverlay"
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in Property thisPagefileDetail of Class Module cwOverlay"
 End Property
 
 '---------------------------------------------------------------------------------------
@@ -484,8 +485,8 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
     Dim Arr As Variant
     Dim Key As String: Key = vbNullString
     Dim Pat As cCairoPattern
-    Dim txtRAMtotal As String: txtRAMtotal = vbNullString
-    Dim txtRAMPercent As String: txtRAMPercent = vbNullString
+    Dim txtPagefiletotal As String: txtPagefiletotal = vbNullString
+    Dim txtPagefilePercent As String: txtPagefilePercent = vbNullString
     Dim textDrawn As Boolean:   textDrawn = False
     Dim someOpacity As Double: someOpacity = 0
     Dim cream As String: cream = vbNullString
@@ -503,8 +504,8 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
     W.Refresh
     someOpacity = (Val(mThisOpacity) / 100) * 0.75
     
-    txtRAMPercent = CStr(Int(ramPercent))
-    txtRAMtotal = CStr(Int(ramTotal))
+    txtPagefilePercent = CStr(Int(ramPercent))
+    txtPagefiletotal = CStr(Int(ramTotal))
 
     For I = 0 To cCollOverlayImages.Count - 1 ' this is the ExcludedPaths collection populated in cfAlpha by duplicating collPSDNonUIElements.
       Arr = cCollOverlayImages.ItemByIndex(I)
@@ -521,8 +522,8 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
                  Case "secondshadow", "secondhand"
                     
                      ' draw the date and day in the windows just once to retain opacity
-                    CC.DrawText 265, 103, 200, 200, txtRAMPercent, , , 2, True, , someOpacity
-                    CC.DrawText 455, 297, 200, 200, txtRAMtotal, , , 2, True, , someOpacity
+                    CC.DrawText 265, 103, 200, 200, txtPagefilePercent, , , 2, True, , someOpacity
+                    CC.DrawText 455, 297, 200, 200, txtPagefiletotal, , , 2, True, , someOpacity
                     textDrawn = True
                     
                     Set Pat.Matrix = Pat.Matrix.TranslateCoords(11, 246) 'shift to the "rotation-point" within the Pattern
@@ -742,7 +743,7 @@ Pagefile_Usage_Total_Error:
 End Function
 
 ' ----------------------------------------------------------------
-' Procedure Name: obtainRAMDetails
+' Procedure Name: obtainPagefileDetails
 ' Purpose:
 ' Procedure Kind: Function
 ' Procedure Access: Public
@@ -750,23 +751,23 @@ End Function
 ' Author: beededea
 ' Date: 21/01/2024
 ' ----------------------------------------------------------------
-Private Function obtainRAMDetails() As String
+Private Function obtainPagefileDetails() As String
     Dim result As String: result = vbNullString
     
-    On Error GoTo obtainRAMDetails_Error
+    On Error GoTo obtainPagefileDetails_Error
 
     result = result & "System Memory: " & Trim$(Pagefile_Usage_Total) & sizString & " Pagefile total, " & CStr(Pagefile_Usage_Percent) & "% utilised." & vbCrLf
 
     Debug.Print result
 
-    obtainRAMDetails = result
+    obtainPagefileDetails = result
     
     On Error GoTo 0
     Exit Function
 
-obtainRAMDetails_Error:
+obtainPagefileDetails_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure obtainRAMDetails, line " & Erl & "."
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure obtainPagefileDetails, line " & Erl & "."
 
 End Function
 '

@@ -32,6 +32,8 @@ DONE
 
 TODO
 
+' usage balloon tooltip % needs to be dynamically updated, currently only seems to show an older percentage
+
 using: https://stackoverflow.com/questions/1404731/how-to-get-current-cpu-and-ram-usage-in-vb-6
 Create gauges based upon the RAM gauge for pagefile usage and virtual memory.
    ulTotalPageFile As INT64
