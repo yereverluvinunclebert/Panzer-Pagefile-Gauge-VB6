@@ -1,8 +1,8 @@
-PANZER RAM GAUGE WIDGET
+PANZER PAGEFILE GAUGE WIDGET
 
-The Panzer RAM Gauge Widget is a utility displaying the combined RAM usage of your system, in a dieselpunk fashion on your desktop. It can be resized and placed anywhere on your desktop. It uses minimal resources and helps give your desktop a dieselpunk make-over.
+The Panzer Pagefile Gauge Widget is a utility displaying the combined Pagefile usage of your system, in a dieselpunk fashion on your desktop. It can be resized and placed anywhere on your desktop. It uses minimal resources and helps give your desktop a dieselpunk make-over.
 
-This VB6 version of the RAM Gauge widget replaces the Yahoo widget version that is now obsolete.
+This VB6 version of the Pagefile Gauge widget is entirely new and does not replace any other Yahoo or Xwidget of the same.
 
 This widget's UI functionality is 'complex' as I am using my complex template for this widget and widgets yet to come, it allows the user to interact with the graphical elements of the widget.
 
