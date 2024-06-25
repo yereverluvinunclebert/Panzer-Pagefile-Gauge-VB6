@@ -62,8 +62,8 @@ Private animationInterval As Integer
 Private animateCCW As Boolean
 
 Private SDeg As Double
-Private ramPercent As Long
-Private ramTotal As Long
+Private pagefilePercent As Long
+Private pagefileTotal As Long
 Private sizString As String
 
 '------------------------------------------------------ ENDS
@@ -504,8 +504,8 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
     W.Refresh
     someOpacity = (Val(mThisOpacity) / 100) * 0.75
     
-    txtPagefilePercent = CStr(Int(ramPercent))
-    txtPagefiletotal = CStr(Int(ramTotal))
+    txtPagefilePercent = CStr(Int(pagefilePercent))
+    txtPagefiletotal = CStr(Int(pagefileTotal))
 
     For I = 0 To cCollOverlayImages.Count - 1 ' this is the ExcludedPaths collection populated in cfAlpha by duplicating collPSDNonUIElements.
       Arr = cCollOverlayImages.ItemByIndex(I)
@@ -534,14 +534,14 @@ Private Sub W_Paint(CC As RC6.cCairoContext, ByVal xAbs As Single, ByVal yAbs As
                     
                  Case "redlamptrue"
                     
-                    If ramPercent >= 80 Then
+                    If pagefilePercent >= 80 Then
                         Set Pat.Matrix = Pat.Matrix.TranslateCoords(-Arr(0), -Arr(1)) 'shift the Pattern via the original X,Y PSD-Offsets (stored in Arr(0) and Arr(1))
                         CC.Paint Arr(2), Pat 'render the Pattern
                     End If
                     
                  Case "redlampfalse"
                     
-                    If ramPercent < 80 Then
+                    If pagefilePercent < 80 Then
                         Set Pat.Matrix = Pat.Matrix.TranslateCoords(-Arr(0), -Arr(1))
                         CC.Paint Arr(2), Pat ' render the Pattern
                     End If
@@ -629,13 +629,13 @@ Private Sub tmrSampler_Timer()
             oldSDeg = SDeg
                 
             ' obtain the new Pagefile amount
-            ramPercent = Pagefile_Usage_Percent
+            pagefilePercent = Pagefile_Usage_Percent
             
-            ramTotal = Pagefile_Usage_Total
+            pagefileTotal = Pagefile_Usage_Total
 
             
             ' calculate the new cpu amount in degrees
-            newSDeg = (ramPercent * 3) + 30
+            newSDeg = (pagefilePercent * 3) + 30
             
             If oldSDeg = newSDeg Then Exit Sub
             
@@ -667,9 +667,9 @@ Private Sub tmrSampler_Timer()
             
         End If
     Else
-        ramPercent = Pagefile_Usage_Percent
-        ramTotal = Pagefile_Usage_Total
-        SDeg = (ramPercent * 3) + 30
+        pagefilePercent = Pagefile_Usage_Percent
+        pagefileTotal = Pagefile_Usage_Total
+        SDeg = (pagefilePercent * 3) + 30
     End If
     
     W.Parent.Refresh
@@ -724,7 +724,7 @@ End Function
 ' ----------------------------------------------------------------
 Private Function Pagefile_Usage_Total() As Double
     Dim udtMemStatEx As MEMORYSTATUSEX
-    Dim physMem As Long: physMem = 0
+    Dim physMem As Double: physMem = 0
     
     udtMemStatEx.dwLength = Len(udtMemStatEx)
     Call GlobalMemoryStatusEx(udtMemStatEx)
@@ -753,11 +753,25 @@ End Function
 ' ----------------------------------------------------------------
 Private Function obtainPagefileDetails() As String
     Dim result As String: result = vbNullString
+    Dim udtMemStatEx As MEMORYSTATUSEX
+    
+    udtMemStatEx.dwLength = Len(udtMemStatEx)
+    Call GlobalMemoryStatusEx(udtMemStatEx)
     
     On Error GoTo obtainPagefileDetails_Error
 
-    result = result & "System Memory: " & Trim$(Pagefile_Usage_Total) & sizString & " Pagefile total, " & CStr(Pagefile_Usage_Percent) & "% utilised." & vbCrLf
+    result = result & "System Pagefile Total: " & Trim$(Pagefile_Usage_Total) & sizString & "  , " & vbCrLf
+    result = result & "Available Pagefile: " + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulAvailPageFile.LoPart, udtMemStatEx.ulAvailPageFile.HiPart)) & vbCrLf
+    result = result & "Percentage Usage: " + vbTab + CStr(Pagefile_Usage_Percent) & "% utilised." & vbCrLf
 
+'   result = result & "Total physical memory" + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulTotalPhys.LoPart, udtMemStatEx.ulTotalPhys.HiPart)) & " (" & Round(CLargeInt(udtMemStatEx.ulAvailPhys.LoPart, udtMemStatEx.ulAvailPhys.HiPart) / (CLargeInt(udtMemStatEx.ulTotalPhys.LoPart, udtMemStatEx.ulTotalPhys.HiPart)) * 100) & "% Free)" & vbCrLf
+'   result = result & "Available physical memory" + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulAvailPhys.LoPart, udtMemStatEx.ulAvailPhys.HiPart)) & vbCrLf
+'   result = result & "Total virtual memory" + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulTotalVirtual.LoPart, udtMemStatEx.ulTotalVirtual.HiPart)) & vbCrLf
+'   result = result & "Available virtual memory" + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulAvailVirtual.LoPart, udtMemStatEx.ulAvailVirtual.HiPart)) & vbCrLf
+'   result = result & "Total page file " + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulTotalPageFile.LoPart, udtMemStatEx.ulTotalPageFile.HiPart)) & vbCrLf
+   result = result & "Available extended page file " + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulAvailExtendedVirtual.LoPart, udtMemStatEx.ulAvailExtendedVirtual.HiPart)) & vbCrLf
+ '  result = result & "Memory Load" + vbTab + CStr(udtMemStatEx.dwMemoryLoad) + "%"
+   
     Debug.Print result
 
     obtainPagefileDetails = result
@@ -844,6 +858,47 @@ Public Function NumberInKB(ByVal vNumber As Currency) As Long
     End Select
     
     NumberInKB = retVal
+
+    
+    On Error GoTo 0
+    Exit Function
+
+NumberInKB_Error:
+
+    MsgBox "Error " & Err.Number & " (" & Err.Description & ") in procedure NumberInKB, line " & Erl & "."
+
+End Function
+
+
+' ----------------------------------------------------------------
+' Procedure Name: NumberInKB
+' Purpose:
+' Procedure Kind: Function
+' Procedure Access: Public
+' Parameter vNumber (Currency):
+' Return Type: Long
+' Author: https://stackoverflow.com/users/164214/khodor
+' Date: 11/01/2024
+' ----------------------------------------------------------------
+Public Function NumberInKB2(ByVal vNumber As Currency) As String
+    On Error GoTo NumberInKB_Error
+    Dim retVal As String
+    
+    Select Case vNumber
+       Case Is < 1024 ^ 1
+          retVal = CLng(vNumber) & " bytes"
+       Case Is < 1024 ^ 2
+          retVal = CLng(Round(vNumber / 1024, 1)) & " KB"
+       Case Is < 1024 ^ 3
+          retVal = CLng(Round(vNumber / 1024 ^ 2, 2)) & " MB"
+       Case Is < 1024 ^ 4
+          retVal = CLng(Round(vNumber / 1024 ^ 3, 2)) & " GB"
+       Case Is < 1024 ^ 5
+          retVal = CLng(Round(vNumber / 1024 ^ 4, 2)) & " TB"
+    End Select
+    
+    If vNumber = 0 Then retVal = "zero"
+    NumberInKB2 = retVal
 
     
     On Error GoTo 0
