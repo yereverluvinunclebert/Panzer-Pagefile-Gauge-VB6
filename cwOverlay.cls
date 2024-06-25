@@ -763,14 +763,7 @@ Private Function obtainPagefileDetails() As String
     result = result & "System Pagefile Total: " & Trim$(Pagefile_Usage_Total) & sizString & "  , " & vbCrLf
     result = result & "Available Pagefile: " + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulAvailPageFile.LoPart, udtMemStatEx.ulAvailPageFile.HiPart)) & vbCrLf
     result = result & "Percentage Usage: " + vbTab + CStr(Pagefile_Usage_Percent) & "% utilised." & vbCrLf
-
-'   result = result & "Total physical memory" + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulTotalPhys.LoPart, udtMemStatEx.ulTotalPhys.HiPart)) & " (" & Round(CLargeInt(udtMemStatEx.ulAvailPhys.LoPart, udtMemStatEx.ulAvailPhys.HiPart) / (CLargeInt(udtMemStatEx.ulTotalPhys.LoPart, udtMemStatEx.ulTotalPhys.HiPart)) * 100) & "% Free)" & vbCrLf
-'   result = result & "Available physical memory" + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulAvailPhys.LoPart, udtMemStatEx.ulAvailPhys.HiPart)) & vbCrLf
-'   result = result & "Total virtual memory" + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulTotalVirtual.LoPart, udtMemStatEx.ulTotalVirtual.HiPart)) & vbCrLf
-'   result = result & "Available virtual memory" + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulAvailVirtual.LoPart, udtMemStatEx.ulAvailVirtual.HiPart)) & vbCrLf
-'   result = result & "Total page file " + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulTotalPageFile.LoPart, udtMemStatEx.ulTotalPageFile.HiPart)) & vbCrLf
-   result = result & "Available extended page file " + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulAvailExtendedVirtual.LoPart, udtMemStatEx.ulAvailExtendedVirtual.HiPart)) & vbCrLf
- '  result = result & "Memory Load" + vbTab + CStr(udtMemStatEx.dwMemoryLoad) + "%"
+    result = result & "Available extended page file " + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulAvailExtendedVirtual.LoPart, udtMemStatEx.ulAvailExtendedVirtual.HiPart)) & vbCrLf
    
     Debug.Print result
 
