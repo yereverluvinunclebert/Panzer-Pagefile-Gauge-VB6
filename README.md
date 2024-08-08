@@ -86,6 +86,8 @@ The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage
 	Windows 10 Home 64bit on Intel    
 	Windows 10 Home 64bit on AMD    
 	Windows 11 64bit on Intel  
+
+	
    
  CREDITS:
  
@@ -163,7 +165,7 @@ This will allow the custom controls to be accessible to the VB6 IDE
 at design time and the sliders will function as intended (if this ocx is
 not registered correctly then the relevant controls will be replaced by picture boxes).
 
-The above is only for development, for ordinary users, during runtime there is no need to do the above. The OCX will reside in the program folder. The program reference to this OCX is contained within the supplied resource file, Panzer CPU Gauge.RES. The reference to this file is already compiled into the binary. As long as the OCX is in the same folder as the binary the program will run without the need to register the OCX manually.
+The above is only for development, for ordinary users, during runtime there is no need to do the above. The OCX will reside in the program folder. The program reference to this OCX is contained within the supplied resource file, Panzer Pagefile Gauge.RES. The reference to this file is already compiled into the binary. As long as the OCX is in the same folder as the binary the program will run without the need to register the OCX manually.
  
  * OLEGuids.tlb
  
