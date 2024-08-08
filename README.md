@@ -20,7 +20,7 @@ The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage
  opacity/transparency may be set as to the users discretion. The widget can 
  also be made to hide for a pre-determined period.
  
-![panzer-ram-icon](https://github.com/yereverluvinunclebert/Panzer-RAM-Gauge-VB6/assets/2788342/99ff7e97-d6e4-4696-93cc-e1342560465e)
+![pagefileGauge](https://github.com/user-attachments/assets/c1e404b0-883c-4ffe-80e7-22ac60ae8f93)
 
  Right clicking will bring up a menu of options. Double-clicking on the widget will cause a personalised Windows application to 
  fire up. The first time you run it there will be no assigned function and so it 
@@ -29,7 +29,7 @@ The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage
  windows. Mouse hover over the widget and press CTRL+mousewheel up/down to resize. It works well on Windows XP 
  to Windows 11.
  
-![panzergauge-help](https://github.com/yereverluvinunclebert/Panzer-Pagefile-Gauge-VB6/assets/2788342/b6e80fd8-b6d3-4e66-85ff-6d3fb1c70589)
+![panzergauge-help](https://github.com/user-attachments/assets/f9bb0e1d-9fa3-4d8d-9f42-d52de15b649a)
 
  The Panzer Pagefile Gauge VB6 gauge is Beta-grade software, under development, not yet 
  ready to use on a production system - use at your own risk.
@@ -55,8 +55,6 @@ The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage
  I do hope you enjoy using this utility and others. Your own software 
  enhancements and contributions will be gratefully received if you choose to 
  contribute.
-
-![security](https://github.com/yereverluvinunclebert/Panzer-RAM-Gauge-VB6/assets/2788342/2fdc4671-94e3-41ef-8885-997ae81978ce)
 
  BUILD: The program runs without any Microsoft plugins.
  
@@ -183,8 +181,7 @@ The above is only for development, for ordinary users, during runtime there is n
  
  In the VB6 IDE - project - references - browse - select the OLEGuids.tlb
  
-![prefs-about](https://github.com/yereverluvinunclebert/Panzer-RAM-Gauge-VB6/assets/2788342/b2063169-44ad-4fd1-960f-53bed0c030e6)
-
+![prefs-about](https://github.com/user-attachments/assets/853f9d1d-cb69-4bfc-92d0-61d07e279b7e)
 
  * SETUP.EXE - The program is currently distributed using setup2go, a very useful 
  and comprehensive installer program that builds a .exe installer. Youll have to 
@@ -218,7 +215,8 @@ The above is only for development, for ordinary users, during runtime there is n
  With regard to the commercial use of incorporated images, permission and a 
  licence would need to be obtained from the original owner and creator, ie. me.
  
-![about](https://github.com/yereverluvinunclebert/Panzer-RAM-Gauge-VB6/assets/2788342/00641064-f0ae-435c-ac64-24e6a30290bc)
+![about](https://github.com/user-attachments/assets/b445d44f-5b56-47d4-9447-988ef36444a1)
+
 
 ![Panzer-CPU-Gauge-onDesktop](https://github.com/yereverluvinunclebert/Panzer-RAM-Gauge-VB6/assets/2788342/6dc97b14-9954-4f8c-a775-5657b2aeec85)
 
