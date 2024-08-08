@@ -75,6 +75,7 @@ The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage
 	Open File common dialog code without dependent OCX - http://forums.codeguru.com/member.php?92278-rxbagain  
 	VBAdvance  
  
+![pagefileBalloon](https://github.com/user-attachments/assets/d48b51eb-96fd-4f82-9188-bfa0a67fe0fd)
  
  Tested on :
  
