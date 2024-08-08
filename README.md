@@ -14,7 +14,7 @@
   
 The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage of your system in a dieselpunk fashion on your desktop. This Widget is a moveable widget that you can move anywhere around the desktop as you require.
  
-![panzer-ramphoto-1440x900](https://github.com/yereverluvinunclebert/Panzer-RAM-Gauge-VB6/assets/2788342/325c427a-2149-4f92-aeb9-51b9f937cd4c)
+
 
  This widget can be increased in size, animation speed can be changed, 
  opacity/transparency may be set as to the users discretion. The widget can 
