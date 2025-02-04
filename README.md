@@ -182,6 +182,10 @@ These are the pertinent bits:
  si_the_geek       for his special folder code
  
  Elroy on VB forums for the balloon tooltips
+
+ Hypetia for her physMem code - https://www.tek-tips.com/userinfo.cfm?member=Hypetia
+
+ Khodor for the RAM numbers conversion code https://stackoverflow.com/users/164214/khodor
  
  Harry Whitfield for his quality testing, brain stimulation and being an 
  unwitting source of inspiration. 
