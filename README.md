@@ -14,7 +14,7 @@ A FOSS Pagefile Gauge VB6 WoW64 Widget for Windows Vista, 7, 8 and 10/11+. There
   
 The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage of your system in a dieselpunk fashion on your desktop. This Widget is a moveable widget that you can move anywhere around the desktop as you require.
 
-These are the pertinent bits:
+The following is the code used to extract the memory information from the running system via the GlobalMemoryStatusEx API. These are the pertinent bits:
 
 
     Private Declare Sub GlobalMemoryStatusEx Lib "kernel32" (lpBuffer As MEMORYSTATUSEX)
