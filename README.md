@@ -79,7 +79,7 @@ The following is the code used to extract the memory information from the runnin
       obtainPagefileDetails = result
     End Function
 
-
+There are some other bits of code used for formatting the results that you will need. Just dig into the code to find the above and it will become apparent which bits you require. 
  
 ![pagefilePhoto](https://github.com/user-attachments/assets/07750de4-32d0-4810-a22a-e1a480cb7a6b)
 
