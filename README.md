@@ -13,6 +13,53 @@ A FOSS Pagefile Gauge VB6 WoW64 Widget for Windows Vista, 7, 8 and 10/11+. There
  Functional and gorgeous at the same time. The graphics are my own, I took original inspiration from a clock face by Italo Fortana combining it with an aircraft gauge surround. It is all my code with some help from the chaps at VBForums (credits given). 
   
 The Panzer Pagefile Gauge VB6  is a useful utility displaying the Pagefile usage of your system in a dieselpunk fashion on your desktop. This Widget is a moveable widget that you can move anywhere around the desktop as you require.
+
+These are the pertinent bits:
+
+
+    Private Declare Sub GlobalMemoryStatusEx Lib "kernel32" (lpBuffer As MEMORYSTATUSEX)
+    
+    Private Type INT64
+       LoPart As Long
+       HiPart As Long
+    End Type
+
+    Private Type MEMORYSTATUSEX
+       dwLength As Long
+       dwMemoryLoad As Long
+       ulTotalPhys As INT64
+       ulAvailPhys As INT64
+       ulTotalPageFile As INT64
+       ulAvailPageFile As INT64
+       ulTotalVirtual As INT64
+       ulAvailVirtual As INT64
+       ulAvailExtendedVirtual As INT64
+    End Type    
+    
+    Private Function Pagefile_Usage_Percent() As Long
+        Dim udtMemStatEx As MEMORYSTATUSEX
+        Dim physMemFree As Long: physMemFree = 0
+    
+        udtMemStatEx.dwLength = Len(udtMemStatEx)
+        Call GlobalMemoryStatusEx(udtMemStatEx)
+    
+        physMemFree = Round(CLargeInt(udtMemStatEx.ulAvailPageFile.LoPart, udtMemStatEx.ulAvailPageFile.HiPart) / (CLargeInt(udtMemStatEx.ulTotalPageFile.LoPart, udtMemStatEx.ulTotalPageFile.HiPart)) * 100)
+    
+    	Pagefile_Usage_Percent = 100 - physMemFree
+    End Function
+
+    Private Function Pagefile_Usage_Total() As Double
+    	Dim udtMemStatEx As MEMORYSTATUSEX
+    	Dim physMem As Double: physMem = 0
+    
+    	udtMemStatEx.dwLength = Len(udtMemStatEx)
+    	Call GlobalMemoryStatusEx(udtMemStatEx)
+    
+    	physMem = NumberInKB(CLargeInt(udtMemStatEx.ulTotalPageFile.LoPart, udtMemStatEx.ulTotalPageFile.HiPart))
+    
+    	Pagefile_Usage_Total = physMem
+    End Function
+
  
 ![pagefilePhoto](https://github.com/user-attachments/assets/07750de4-32d0-4810-a22a-e1a480cb7a6b)
 
