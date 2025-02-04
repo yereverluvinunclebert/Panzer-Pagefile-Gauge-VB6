@@ -45,20 +45,40 @@ These are the pertinent bits:
     
         physMemFree = Round(CLargeInt(udtMemStatEx.ulAvailPageFile.LoPart, udtMemStatEx.ulAvailPageFile.HiPart) / (CLargeInt(udtMemStatEx.ulTotalPageFile.LoPart, udtMemStatEx.ulTotalPageFile.HiPart)) * 100)
     
-    	Pagefile_Usage_Percent = 100 - physMemFree
+        Pagefile_Usage_Percent = 100 - physMemFree
     End Function
 
     Private Function Pagefile_Usage_Total() As Double
-    	Dim udtMemStatEx As MEMORYSTATUSEX
-    	Dim physMem As Double: physMem = 0
+        Dim udtMemStatEx As MEMORYSTATUSEX
+        Dim physMem As Double: physMem = 0
     
-    	udtMemStatEx.dwLength = Len(udtMemStatEx)
-    	Call GlobalMemoryStatusEx(udtMemStatEx)
+        udtMemStatEx.dwLength = Len(udtMemStatEx)
+        all GlobalMemoryStatusEx(udtMemStatEx)
+
+        physMem = NumberInKB(CLargeInt(udtMemStatEx.ulTotalPageFile.LoPart, udtMemStatEx.ulTotalPageFile.HiPart))
     
-    	physMem = NumberInKB(CLargeInt(udtMemStatEx.ulTotalPageFile.LoPart, udtMemStatEx.ulTotalPageFile.HiPart))
-    
-    	Pagefile_Usage_Total = physMem
+        Pagefile_Usage_Total = physMem
     End Function
+    
+    Private Function obtainPagefileDetails() As String
+      Dim result As String: result = vbNullString
+      Dim udtMemStatEx As MEMORYSTATUSEX
+      
+      udtMemStatEx.dwLength = Len(udtMemStatEx)
+      Call GlobalMemoryStatusEx(udtMemStatEx)
+      
+      On Error GoTo obtainPagefileDetails_Error
+  
+      result = result & "System Pagefile Total: " & Trim$(Pagefile_Usage_Total) & sizString & "  , " & vbCrLf
+      result = result & "Available Pagefile: " + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulAvailPageFile.LoPart, udtMemStatEx.ulAvailPageFile.HiPart)) & vbCrLf
+      result = result & "Percentage Usage: " + vbTab + CStr(Pagefile_Usage_Percent) & "% utilised." & vbCrLf
+      result = result & "Available extended page file " + vbTab + NumberInKB2(CLargeInt(udtMemStatEx.ulAvailExtendedVirtual.LoPart, udtMemStatEx.ulAvailExtendedVirtual.HiPart)) & vbCrLf
+     
+      Debug.Print result
+  
+      obtainPagefileDetails = result
+    End Function
+
 
  
 ![pagefilePhoto](https://github.com/user-attachments/assets/07750de4-32d0-4810-a22a-e1a480cb7a6b)
