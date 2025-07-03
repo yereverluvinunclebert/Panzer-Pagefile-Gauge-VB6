@@ -152,7 +152,7 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
                 If gblEnableBalloonTooltips = "1" Then CreateToolTip gaugeForm.hwnd, "Click here to toggle the pointer movement from once per interval to a more fluid, continuous movement.", _
                      TTIconInfo, widgetName & " Tick Button Help", , , , True
             Case "housing/switchfacesbutton"
-                If gblEnableBalloonTooltips = "1" Then CreateToolTip gaugeForm.hwnd, "This button is not allocated a function in this particular widget.", _
+                If gblEnableBalloonTooltips = "1" Then CreateToolTip gaugeForm.hwnd, "This button selects the next sensor from the list of sensors on your system.", _
                      TTIconInfo, widgetName & " Switch Faces Button Help", , , , True
             Case "housing/stopbutton"
                 If gblEnableBalloonTooltips = "1" Then CreateToolTip gaugeForm.hwnd, "This button stops all animated clock functions for this widget, hand movements &c .", _
@@ -163,8 +163,11 @@ Private Sub gaugeForm_BubblingEvent(ByRef Sender As Object, ByRef EventName As S
             Case "housing/helpbutton"
                 If gblEnableBalloonTooltips = "1" Then CreateToolTip gaugeForm.hwnd, "This button opens the one-page help file for this widget. There is a further detailed CHM help file available from the right-click menu that contains all the information that you need to run this widget.", _
                      TTIconInfo, widgetName & " Help Button Help", , , , True
-            Case Else
-                If gblEnableBalloonTooltips = "1" Then CreateToolTip gaugeForm.hwnd, "" & overlayWidget.thisPagefileDetail _
+            Case Else    'gblSensorArray
+                If gblEnableBalloonTooltips = "1" Then CreateToolTip gaugeForm.hwnd, "Sensor: " & gblSensorArray(overlayWidget.thisSensorNo, 1) & " (" & gblSensorArray(overlayWidget.thisSensorNo, 4) & ")" _
+                    & vbCrLf & "Current Temperature : " & gblSensorArray(overlayWidget.thisSensorNo, 2) & " C" _
+                    & vbCrLf & "Maximum Temperature : " & gblSensorArray(overlayWidget.thisSensorNo, 3) & " C" _
+                    & vbCrLf & "" _
                     & vbCrLf & "Right Click to open the menu and the preferences. CTRL+ Mouse scrollwheel UP/DOWN to resize." _
                     , TTIconInfo, widgetName & " Information.", , , , True
         End Select
@@ -256,8 +259,8 @@ Private Sub startbutton_click()
     Call TurnFunctionsOn
 
     fileToPlay = "ting.wav"
-    If gblEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
    On Error GoTo 0
@@ -287,8 +290,8 @@ Private Sub stopbutton_mouseUp(ByRef Sender As Object)
     Call SwitchOff
     
     fileToPlay = "stop.wav"
-    If gblEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
 
    On Error GoTo 0
@@ -346,19 +349,26 @@ End Sub
 ' Procedure : switchfacesbutton_mouseUp
 ' Author    : beededea
 ' Date      : 03/08/2023
-' Purpose   :
+' Purpose   : increment the Sensor number
 '---------------------------------------------------------------------------------------
 '
 Private Sub switchfacesbutton_mouseUp(ByRef Sender As Object)
     Dim fileToPlay As String: fileToPlay = vbNullString
+    Dim currSensorNo As Integer: currSensorNo = 0
+    
     On Error GoTo switchfacesbutton_mouseUp_Error
 
     Sender.Widget.Alpha = Val(gblOpacity) / 100
     Sender.Widget.Refresh
+    
+    currSensorNo = overlayWidget.thisSensorNo
+    currSensorNo = currSensorNo + 1
+    If currSensorNo >= gblSensorCount - 1 Then currSensorNo = 0
+    overlayWidget.thisSensorNo = currSensorNo
         
     fileToPlay = "till.wav"
-    If gblEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
    On Error GoTo 0
    Exit Sub
@@ -410,8 +420,8 @@ Private Sub prefsbutton_mouseDown(ByRef Sender As Object)
     'Sender.Widget.Visible = False
     Sender.Widget.Refresh ' this removes the delay in the Button depressing
     fileToPlay = "winding.wav"
-    If gblEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
    'MsgBox "prefsbutton_mouseDown"
    Call makeProgramPreferencesAvailable
@@ -449,11 +459,11 @@ Private Sub tickbutton_mouseDown(ByRef Sender As Object)
     Sender.Widget.Refresh ' this removes the delay in the Button depressing
     
     fileToPlay = "lock.wav"
-    If gblEnableSounds = "1" And fFExists(App.path & "\resources\sounds\" & fileToPlay) Then
-        PlaySound App.path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
+    If gblEnableSounds = "1" And fFExists(App.Path & "\resources\sounds\" & fileToPlay) Then
+        PlaySound App.Path & "\resources\sounds\" & fileToPlay, ByVal 0&, SND_FILENAME Or SND_ASYNC
     End If
     
-    sPutINISetting "Software\PzPagefileGauge", "pointerAnimate", gblPointerAnimate, gblSettingsFile
+    sPutINISetting "Software\PzOHMGauge", "pointerAnimate", gblPointerAnimate, gblSettingsFile
     widgetPrefs.cmbTickSwitchPref.ListIndex = Val(gblPointerAnimate)
     
    On Error GoTo 0
@@ -501,9 +511,9 @@ Private Sub gaugeForm_DblClick()
     
     If SHIFT_1 = True Then
         SHIFT_1 = False
-        Call ShellExecute(fAlpha.gaugeForm.hwnd, "Open", gblOpenFile, vbNullString, App.path, 1)
+        Call ShellExecute(fAlpha.gaugeForm.hwnd, "Open", gblOpenFile, vbNullString, App.Path, 1)
     Else
-        Call ShellExecute(fAlpha.gaugeForm.hwnd, "runas", thisCommand, vbNullString, App.path, 1)
+        Call ShellExecute(fAlpha.gaugeForm.hwnd, "runas", thisCommand, vbNullString, App.Path, 1)
     End If
 
     On Error GoTo 0
@@ -547,7 +557,7 @@ End Sub
 ' Purpose   : save the form x,y position when ever the gauge/form is dragged
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_MouseUp(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef Y As Single)
+Private Sub gaugeForm_MouseUp(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
     On Error GoTo gaugeForm_MouseUp_Error
     
     Call savePosition
@@ -572,8 +582,8 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef Y As Single)
-  Static x0 As Single, y0 As Single: If Button = 0 Then x0 = x: y0 = Y 'just store the offsets when no button is down
+Private Sub gaugeForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
+  Static x0 As Single, y0 As Single: If Button = 0 Then x0 = x: y0 = y 'just store the offsets when no button is down
   
    On Error GoTo gaugeForm_MouseMove_Error
     
@@ -583,7 +593,7 @@ Private Sub gaugeForm_MouseMove(ByRef Button As Integer, ByRef Shift As Integer,
     If Button = vbLeftButton And Not gaugeForm.ActiveWidget Is Nothing Then 'Form-Dragging (under certain conditions)
 
       FX = (x - x0) * gaugeForm.WidgetRoot.Zoom + gaugeForm.Left
-      FY = (Y - y0) * gaugeForm.WidgetRoot.Zoom + gaugeForm.Top
+      FY = (y - y0) * gaugeForm.WidgetRoot.Zoom + gaugeForm.Top
       gaugeForm.Move FX, FY
     End If
 
@@ -682,7 +692,7 @@ End Sub
 ' Purpose   :
 '---------------------------------------------------------------------------------------
 '
-Private Sub gaugeForm_MouseDown(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef Y As Single)
+Private Sub gaugeForm_MouseDown(ByRef Button As Integer, ByRef Shift As Integer, ByRef x As Single, ByRef y As Single)
    On Error GoTo W_MouseDown_Error
 
     If Button = vbRightButton Then
